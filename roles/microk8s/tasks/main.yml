@@ -1,0 +1,27 @@
+---
+- name: Instalación de snapd
+  apt:
+    name: snapd
+    
+- name: Instalar microk8s 
+  snap:
+    name: microk8s
+    classic: yes
+
+- name: Iniciar el cluster + activar addons 
+  shell: |
+    microk8s status --wait-ready
+    microk8s enable dns registry ingress
+    
+- name: Agregar usuario a grupo microk8s
+  user:
+    name: "{{ usuario }}"
+    groups: microk8s
+    append: yes
+
+ 
+
+
+
+
+    
